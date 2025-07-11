@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Barışalım mı?</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to right, #ffe6e6, #fff0f5);
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      top: 40%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+    h1 {
+      font-size: 3em;
+      color: #ff4d4d;
+      margin-top: 0;
+    }
+    .hug-bunnies {
+      width: 150px;
+      margin-bottom: 10px;
+    }
+    .button {
+      font-size: 1.5em;
+      padding: 15px 30px;
+      margin: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .yes {
+      background-color: #28a745;
+      color: white;
+    }
+    .no {
+      background-color: #dc3545;
+      color: white;
+    }
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .heart {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: url('https://i.imgur.com/Y9W5zP2.png') no-repeat center;
+      background-size: contain;
+      animation: float 5s infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+    #loveMessage {
+      display: none;
+      font-size: 2.5em;
+      color: #e60073;
+      margin-top: 50px;
+      z-index: 3;
+    }
+    .flower {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: url('https://i.imgur.com/GD1AoQ7.png') no-repeat center;
+      background-size: contain;
+      animation: fall 5s infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10%); opacity: 1; }
+      100% { transform: translateY(110%); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <img src="https://i.imgur.com/Ni7pUhb.png" alt="Sarılmış Tavşanlar" class="hug-bunnies">
+  <h1>Barışalım mı?</h1>
+  <button class="button yes" id="yesBtn">Evet</button>
+  <button class="button no" id="noBtn">Hayır</button>
+  <div id="loveMessage">Seni çok seviyorum! 💖</div>
+</div>
+
+<div class="hearts" id="hearts"></div>
+<div class="hearts" id="flowers"></div>
+
+<script>
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const loveMessage = document.getElementById("loveMessage");
+
+  let growCount = 1;
+
+  noBtn.addEventListener("click", () => {
+    growCount += 0.2;
+    yesBtn.style.transform = `scale(${growCount})`;
+    if (growCount >= 3) {
+      alert("Artık Evet demelisin 😊");
+    }
+  });
+
+  yesBtn.addEventListener("click", () => {
+    loveMessage.style.display = "block";
+    document.querySelector(".container").style.top = "30%";
+    createRain("hearts", "heart", 30);
+    createRain("flowers", "flower", 20);
+  });
+
+  function createRain(containerId, className, count) {
+    const container = document.getElementById(containerId);
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement("div");
+      el.classList.add(className);
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = (Math.random() * 2 + 3) + "s";
+      container.appendChild(el);
+    }
+  }
+</script>
+
+</body>
+</html>
